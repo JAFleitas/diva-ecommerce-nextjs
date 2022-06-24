@@ -1,12 +1,8 @@
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  Grid,
-  Typography,
-} from "@mui/material";
 import type { NextPage } from "next";
+import { Typography } from "@mui/material";
+
 import { ShopLayout } from "../components/layouts";
+import { ProductList } from "../components/products";
 import { initialData } from "../database/products";
 
 const Home: NextPage = () => {
@@ -16,22 +12,7 @@ const Home: NextPage = () => {
         Shop
       </Typography>
       <Typography variant="h2">All Products</Typography>
-
-      <Grid container spacing={4}>
-        {initialData.products.map((product) => (
-          <Grid item xs={6} sm={4} key={product.slug}>
-            <Card>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image={`products/${product.images[0]}`}
-                  alt={product.title}
-                />
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <ProductList products={initialData as any} />
     </ShopLayout>
   );
 };
