@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         Shop
       </Typography>
       <Typography variant="h2">All Products</Typography>
-      <ProductList products={initialData as any} />
+      <ProductList products={initialData.products as any} />
     </ShopLayout>
   );
 };
