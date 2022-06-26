@@ -1,6 +1,16 @@
 import NextLink from "next/link";
-import { AppBar, Box, Button, Link, Toolbar, Typography } from "@mui/material";
-import { LinkCategory, CartButton, Search } from "./";
+import {
+  AppBar,
+  Box,
+  Button,
+  Link,
+  Toolbar,
+  Typography,
+  capitalize,
+} from "@mui/material";
+import { LinkComponent, CartButton, Search } from "./";
+
+const categories: string[] = ["men", "women", "children"];
 
 export const Navbar = () => {
   return (
@@ -14,9 +24,11 @@ export const Navbar = () => {
         </NextLink>
         <Box flex={1} />
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <LinkCategory href="/category/men" contentButton="Men" />
-          <LinkCategory href="/category/women" contentButton="Women" />
-          <LinkCategory href="/category/children" contentButton="Children" />
+          {categories.map((category, index) => (
+            <LinkComponent key={index} href={`category/${category}`}>
+              <Button sx={{ margin: "0px 4px" }}>{capitalize(category)}</Button>
+            </LinkComponent>
+          ))}
         </Box>
         <Box flex={1} />
         <Search />
