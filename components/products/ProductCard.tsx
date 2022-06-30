@@ -31,7 +31,7 @@ export const ProductCard: FC<Props> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <LinkComponent href={"/product/slug"} prefetch={true}>
+        <LinkComponent href={"/product/slug"} >
           <CardActionArea>
             <CardMedia
               component="img"
