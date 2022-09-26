@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ShopLayout } from "../../components/layouts";
-import { CartList } from "../../components/cart";
+import { CartList, OrderSumary } from "../../components/cart";
 
 const CartPage = () => {
   return (
@@ -16,9 +16,9 @@ const CartPage = () => {
       <Typography component="h1" variant="h1">
         Cart
       </Typography>
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={7}>
-          <CartList />
+          <CartList editable />
         </Grid>
         <Grid item xs={12} sm={5}>
           <Card className="summary-card">
@@ -26,7 +26,7 @@ const CartPage = () => {
               <Typography variant="h2">Order</Typography>
               <Divider sx={{ my: 1 }} />
 
-              {/* Order Summary */}
+              <OrderSumary />
               <Box sx={{ mt: 3 }}>
                 <Button color="secondary" className="circular-btn" fullWidth>
                   Checkout

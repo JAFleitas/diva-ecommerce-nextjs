@@ -29,7 +29,7 @@
 }
 
 .circular-btn {
-  border-radius: 30px;
+  border-radius: 0.5rem;
 }
 
 .circular-btn:hover {

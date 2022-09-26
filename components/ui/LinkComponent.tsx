@@ -1,14 +1,13 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import NextLink from "next/link";
 import { Link } from "@mui/material";
 
 interface Props {
   href: string;
-  children: JSX.Element | JSX.Element[];
   prefetch?: boolean;
 }
 
-export const LinkComponent: FC<Props> = ({
+export const LinkComponent: FC<PropsWithChildren<Props>> = ({
   href,
   children,
   prefetch = false,
