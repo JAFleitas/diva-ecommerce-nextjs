@@ -4,3 +4,4 @@ export * from "./CartButton";
 export * from "./Search";
 export * from "./SideMenu";
 export * from "./ItemCounter";
+export * from "./FullScreenLoading";
