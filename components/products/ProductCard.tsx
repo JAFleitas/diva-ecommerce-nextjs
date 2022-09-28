@@ -7,11 +7,11 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { Product } from "../../interfaces";
+import { IProduct } from "../../interfaces";
 import { LinkComponent } from "../ui";
 
 interface Props {
-  product: Product;
+  product: IProduct;
 }
 
 export const ProductCard: FC<Props> = ({ product }) => {
