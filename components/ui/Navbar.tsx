@@ -9,10 +9,17 @@ import {
   capitalize,
 } from "@mui/material";
 import { LinkComponent, CartButton, Search } from "./";
+import { useRouter } from "next/router";
+import { UiContext } from "../../context";
+import { useContext } from "react";
 
 const categories: string[] = ["men", "women", "children"];
 
 export const Navbar = () => {
+  const { pathname } = useRouter();
+
+  const { toggleSideMenu } = useContext(UiContext);
+
   return (
     <AppBar>
       <Toolbar>
@@ -25,15 +32,26 @@ export const Navbar = () => {
         <Box flex={1} />
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
           {categories.map((category, index) => (
-            <LinkComponent key={index} href={`category/${category}`}>
-              <Button sx={{ margin: "0px 4px" }}>{capitalize(category)}</Button>
+            <LinkComponent key={index} href={`/category/${category}`}>
+              <Button
+                color={
+                  pathname === `/category/${category}` ? "secondary" : "info"
+                }
+                sx={{
+                  margin: "0px 4px",
+                }}
+              >
+                {capitalize(category)}
+              </Button>
             </LinkComponent>
           ))}
         </Box>
         <Box flex={1} />
         <Search />
         <CartButton />
-        <Button sx={{ ml: 2 }}>Menu</Button>
+        <Button onClick={toggleSideMenu} sx={{ ml: 2 }}>
+          Menu
+        </Button>
       </Toolbar>
     </AppBar>
   );
