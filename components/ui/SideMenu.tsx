@@ -1,3 +1,4 @@
+import { useContext, useState } from "react";
 import {
   Box,
   Divider,
@@ -24,7 +25,6 @@ import {
   VpnKeyOutlined,
 } from "@mui/icons-material";
 import { UiContext } from "../../context";
-import { useContext } from "react";
 import { useRouter } from "next/router";
 
 export const SideMenu = () => {
@@ -35,6 +35,14 @@ export const SideMenu = () => {
   };
 
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const onSearchTerm = () => {
+    if (searchTerm.trim().length === 0) return;
+
+    navigateTo(`/search/${searchTerm}`);
+  };
 
   return (
     <Drawer
@@ -47,11 +55,19 @@ export const SideMenu = () => {
         <List>
           <ListItem>
             <Input
+              className="fadeIn"
+              autoFocus
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={(e) => (e.key === "Enter" ? onSearchTerm() : null)}
               type="text"
               placeholder="Search..."
               endAdornment={
                 <InputAdornment position="end">
-                  <IconButton aria-label="toggle password visibility">
+                  <IconButton
+                    onClick={onSearchTerm}
+                    aria-label="toggle password visibility"
+                  >
                     <SearchOutlined />
                   </IconButton>
                 </InputAdornment>

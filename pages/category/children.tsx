@@ -10,7 +10,12 @@ const CategoryChildrenPage: NextPage = () => {
   const { products, isLoading } = useProducts("/products?gender=kid");
 
   return (
-    <ShopLayout title={"DiVA-Shop - Children "} pageDescription={""}>
+    <ShopLayout
+      title={"DiVA-Shop - Children "}
+      pageDescription={
+        "The best clothes for children. Pants, t-shirts, sweatshirts, jeans, jackets and more"
+      }
+    >
       <Typography variant="h1" component="h1">
         Shop
       </Typography>

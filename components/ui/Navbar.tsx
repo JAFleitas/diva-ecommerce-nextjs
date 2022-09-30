@@ -11,7 +11,7 @@ import {
 import { LinkComponent, CartButton, Search } from "./";
 import { useRouter } from "next/router";
 import { UiContext } from "../../context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const categories: string[] = ["men", "women", "children"];
 
@@ -19,7 +19,7 @@ export const Navbar = () => {
   const { pathname } = useRouter();
 
   const { toggleSideMenu } = useContext(UiContext);
-
+  const [isSearchVisible, setisSearchVisible] = useState(false);
   return (
     <AppBar>
       <Toolbar>
@@ -30,7 +30,12 @@ export const Navbar = () => {
           </Link>
         </NextLink>
         <Box flex={1} />
-        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+        <Box
+          className="fadeIn"
+          sx={{
+            display: isSearchVisible ? "none" : { xs: "none", sm: "block" },
+          }}
+        >
           {categories.map((category, index) => (
             <LinkComponent key={index} href={`/category/${category}`}>
               <Button
@@ -47,7 +52,10 @@ export const Navbar = () => {
           ))}
         </Box>
         <Box flex={1} />
-        <Search />
+        <Search
+          isSearchVisible={isSearchVisible}
+          setIsSearchVisible={setisSearchVisible}
+        />
         <CartButton />
         <Button onClick={toggleSideMenu} sx={{ ml: 2 }}>
           Menu
