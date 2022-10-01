@@ -6,6 +6,7 @@ import {
   Grid,
   Box,
   Typography,
+  Chip,
 } from "@mui/material";
 import { IProduct } from "../../interfaces";
 import { LinkComponent } from "../ui";
@@ -34,6 +35,18 @@ export const ProductCard: FC<Props> = ({ product }) => {
       <Card>
         <LinkComponent href={`/product/${product.slug}`}>
           <CardActionArea>
+            {product.inStock === 0 && (
+              <Chip
+                color="primary"
+                label="No stock"
+                sx={{
+                  position: "absolute",
+                  zIndex: 100,
+                  top: 10,
+                  left: 10,
+                }}
+              />
+            )}
             <CardMedia
               component="img"
               image={imageProduct}
