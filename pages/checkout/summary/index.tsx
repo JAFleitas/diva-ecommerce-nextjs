@@ -31,14 +31,14 @@ const SummaryPage = () => {
                 <Typography variant="subtitle1">
                   Shipment information
                 </Typography>
-                <LinkComponent href="/checkout/address" prefetch>
-                  <a style={{ textDecoration: "underline" }}>Edit</a>
+                <LinkComponent href="/checkout/address">
+                  <p style={{ textDecoration: "underline" }}>Edit</p>
                 </LinkComponent>
               </Box>
               <Divider sx={{ my: 1 }} />
               <Box display="flex" justifyContent="end">
-                <LinkComponent href="/cart" prefetch>
-                  <a style={{ textDecoration: "underline" }}>Edit</a>
+                <LinkComponent href="/cart">
+                  <p style={{ textDecoration: "underline" }}>Edit</p>
                 </LinkComponent>
               </Box>
 

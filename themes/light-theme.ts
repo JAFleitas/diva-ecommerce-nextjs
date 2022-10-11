@@ -61,10 +61,10 @@ export const lightTheme = createTheme({
           textTransform: "none",
           boxShadow: "none",
           borderRadius: 6,
-          /* ":hover": {
+          ":hover": {
             backgroundColor: "#cecece55",
             transition: "all 0.3s ease-in-out",
-          }, */
+          },
         },
       },
     },
