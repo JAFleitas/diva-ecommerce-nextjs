@@ -9,10 +9,10 @@ interface Props {
 }
 
 export const ShopLayout: FC<PropsWithChildren<Props>> = ({
-  
   title,
   pageDescription,
   imageFullURL,
+  children,
 }) => {
   return (
     <>

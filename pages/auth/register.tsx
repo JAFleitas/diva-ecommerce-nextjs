@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Grid, TextField, Typography, Button, Chip } from "@mui/material";
 import { AuthLayout } from "../../components/layouts";
@@ -6,6 +6,8 @@ import { LinkComponent } from "../../components/ui";
 import { validations } from "../../utils";
 import { divaApi } from "../../api";
 import { ErrorOutline } from "@mui/icons-material";
+import { AuthContext } from "../../context";
+import { useRouter } from "next/router";
 
 type FormData = {
   name: string;
@@ -19,25 +21,21 @@ const RegisterPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-
+  const router = useRouter();
   const [showError, setShowError] = useState(false);
+  const [messageError, setMessageError] = useState<string>("");
+  const { registerUser } = useContext(AuthContext);
 
   const onRegisterUser = async ({ name, email, password }: FormData) => {
-    try {
-      setShowError(false);
-      const { data } = await divaApi.post("/user/login", {
-        name,
-        email,
-        password,
-      });
-
-      const { token, user } = data;
-
-      console.log({ token, user });
-    } catch (error) {
+    setShowError(false);
+    const { hasError, message } = await registerUser(name, email, password);
+    if (hasError) {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
+      setMessageError(message || "");
+      return;
     }
+    router.replace("/");
   };
   return (
     <AuthLayout title="Register">
@@ -125,7 +123,7 @@ const RegisterPage = () => {
             >
               {showError ? (
                 <Chip
-                  label="Unexpected error"
+                  label={messageError}
                   color="error"
                   icon={<ErrorOutline />}
                   className="fadeIn"

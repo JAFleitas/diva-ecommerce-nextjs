@@ -1,11 +1,13 @@
+import { useContext, useState } from "react";
 import { Box, Grid, TextField, Typography, Button, Chip } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { divaApi } from "../../api";
+
 import { AuthLayout } from "../../components/layouts";
 import { LinkComponent } from "../../components/ui";
 import { validations } from "../../utils";
-import { useState } from "react";
 import { ErrorOutline } from "@mui/icons-material";
+import { AuthContext } from "../../context";
+import { useRouter } from "next/router";
 
 type FormData = {
   email: string;
@@ -19,19 +21,19 @@ const LoginPage = () => {
   } = useForm<FormData>();
 
   const [showError, setShowError] = useState(false);
+  const { loginUser } = useContext(AuthContext);
+  const router = useRouter();
 
   const onLoginUser = async ({ email, password }: FormData) => {
-    try {
-      setShowError(false);
-      const { data } = await divaApi.post("/user/login", { email, password });
+    const isValidLogin = await loginUser(email, password);
 
-      const { token, user } = data;
-
-      console.log({ token, user });
-    } catch (error) {
+    if (!isValidLogin) {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
+      return;
     }
+
+    router.replace("/");
   };
 
   return (
