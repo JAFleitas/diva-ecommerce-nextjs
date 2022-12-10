@@ -1,6 +1,9 @@
+import { FC, PropsWithChildren, useReducer, useEffect } from "react";
+
 import axios from "axios";
+
 import Cookies from "js-cookie";
-import { FC, PropsWithChildren, useReducer } from "react";
+
 import { divaApi } from "../../api";
 import { IUser } from "../../interfaces";
 import { AuthContext, authReducer } from "./";
@@ -16,6 +19,24 @@ const AUTH_INITIAL_STATE: AuthState = {
 };
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = async () => {
+    if (!Cookies.get("token")) {
+      return;
+    }
+    try {
+      const { data } = await divaApi.get("/user/validate-token");
+      const { token, user } = data;
+      Cookies.set("token", token);
+      dispatch({ type: "[Auth] - Login", payload: user });
+    } catch (e) {
+      Cookies.remove("token");
+    }
+  };
+
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
 
   const loginUser = async (
@@ -39,14 +60,12 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     email: string,
     password: string
   ): Promise<{ hasError: boolean; message?: string }> => {
-    const { data } = await divaApi.post("/user/register", {
-      name,
-      email,
-      password,
-    });
-
     try {
-      const { data } = await divaApi.post("/user/login", { email, password });
+      const { data } = await divaApi.post("/user/register", {
+        name,
+        email,
+        password,
+      });
       const { token, user } = data;
 
       Cookies.set("token", token);
