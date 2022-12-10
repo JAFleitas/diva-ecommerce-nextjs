@@ -28,7 +28,7 @@ import { AuthContext, UiContext } from "../../context";
 import { useRouter } from "next/router";
 
 export const SideMenu = () => {
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { user, isLoggedIn, logout } = useContext(AuthContext);
 
   const router = useRouter();
   const navigateTo = (url: string) => {
@@ -129,14 +129,17 @@ export const SideMenu = () => {
           </ListItem>
 
           {isLoggedIn ? (
-            <ListItem button>
+            <ListItem button onClick={logout}>
               <ListItemIcon>
                 <LoginOutlined />
               </ListItemIcon>
               <ListItemText primary={"Logout"} />
             </ListItem>
           ) : (
-            <ListItem button>
+            <ListItem
+              button
+              onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}
+            >
               <ListItemIcon>
                 <VpnKeyOutlined />
               </ListItemIcon>
@@ -145,9 +148,9 @@ export const SideMenu = () => {
           )}
 
           {/* Admin */}
-          <Divider />
           {user?.role === "admin" ? (
             <>
+              <Divider />
               <ListSubheader>Admin Panel</ListSubheader>
               <ListItem button>
                 <ListItemIcon>

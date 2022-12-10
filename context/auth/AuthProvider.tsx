@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { divaApi } from "../../api";
 import { IUser } from "../../interfaces";
 import { AuthContext, authReducer } from "./";
+import { useRouter } from "next/router";
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -22,6 +23,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     checkToken();
   }, []);
+  const router = useRouter();
 
   const checkToken = async () => {
     if (!Cookies.get("token")) {
@@ -85,12 +87,18 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    Cookies.remove("token");
+    router.reload();
+  };
+
   return (
     <AuthContext.Provider
       value={{
         ...state,
         // methods
         loginUser,
+        logout,
         registerUser,
       }}
     >

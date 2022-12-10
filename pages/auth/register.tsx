@@ -35,7 +35,8 @@ const RegisterPage = () => {
       setMessageError(message || "");
       return;
     }
-    router.replace("/");
+    const destination = router.query.p?.toString() || "/";
+    router.replace(destination);
   };
   return (
     <AuthLayout title="Register">
@@ -108,7 +109,9 @@ const RegisterPage = () => {
               </Button>
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="center">
-              <LinkComponent href="/auth/login">
+              <LinkComponent
+                href={`/auth/login?p=${router.query.p?.toString() || "/"}`}
+              >
                 <Typography variant="subtitle2" sx={{ color: "#58a5f4" }}>
                   Do you have an account?
                 </Typography>

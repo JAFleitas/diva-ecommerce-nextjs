@@ -32,8 +32,8 @@ const LoginPage = () => {
       setTimeout(() => setShowError(false), 3000);
       return;
     }
-
-    router.replace("/");
+    const destination = router.query.p?.toString() || "/";
+    router.replace(destination);
   };
 
   return (
@@ -95,7 +95,9 @@ const LoginPage = () => {
               </Button>
             </Grid>
             <Grid item xs={12} display="flex" justifyContent="end">
-              <LinkComponent href="/auth/register">
+              <LinkComponent
+                href={`/auth/register?p=${router.query.p?.toString() || "/"}`}
+              >
                 <Typography variant="subtitle2" sx={{ color: "#58a5f4" }}>
                   Sign In?
                 </Typography>
